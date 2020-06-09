@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="list-group mt-5">
+            <h3>Orders</h3>
+        </div>
+        <div class="list-group-item mr-1 mb-1">
+        <div class="container mb-3">
+{#            <div class="row">#}
+                <div class=" col-sm  list-group-item mr-1 mb-1"><h6 class="font-weight-bold"> Account:</h6>
+                    <div>
+                        <a class="nav-link" href="{% url 'create_account' %}">Add account</a>
+                    </div>
+                </div>
+                <div class=" col-sm  list-group-item mr-1 mb-1"><h6 class="font-weight-bold"> Rest API:</h6>
+                    <div>
+                        <a class="nav-link" href="{% url 'orders:get_orders' %}"> GET - List of active orders</a>
+                        {"account": "Ksenia", "symbol": "XBTUSD"}
+                        <a class="nav-link" href="{% url 'orders:get_orders' %}"> POST - Create new order</a>
+                        {
+                        "ordType": "Market",
+                        "symbol": "XBTUSD",
+                        "orderQty": 13,
+                        "side": "Buy",
+                        "account": "Ksenia"
+                        }
+                        <a class="nav-link" href="{% url 'orders:get_order' "e10797b6-0f1a-c20b-da40-925948e784e3" %} "> GET - order info (by id)</a>
+                        {"account": "Ksenia"}
+                        <a class="nav-link" href="{% url 'orders:get_order' "e10797b6-0f1a-c20b-da40-925948e784e3" %} "> DELETE - order info (by id)</a>
+                        {"account": "Ksenia"}
+                    </div>
+                </div>
+                <div class="col-sm  list-group-item mr-1 mb-1">
+                    <h6 class="font-weight-bold">
+                        Websoket API:
+                    </h6>
+                    <div>
+                        <a class="nav-link" href="{% url 'orders:websoket_subscribe' %}"> Go to api for subscription </a>
+                        {"account": "Ksenia", "action": "subscribe"}
+                    </div>
+                </div>
+{#            </div>#}
+        </div>
+
+        {% for object in object_list %}
+            <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ object }}</h5>
+                </div>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <div class="list-group mt-5">
+            <a class="nav-link" href="{% url 'login' %}"><h3>Please log in</h3></a>
+        </div>
+    {% endif %}
+{% endblock %}
